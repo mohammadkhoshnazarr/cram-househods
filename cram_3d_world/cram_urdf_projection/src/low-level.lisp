@@ -523,8 +523,10 @@ with the object, calculates similar angle around Y axis and applies the rotation
                                   ,@(when (and object-type
                                                (not (eq object-type :kitchen-object)))
                                       `((prolog:== ?object-type ,object-type)))
-                                  (btr:item-type ?world ?object-name ?object-type)
+                                  (btr:item-type ?world ?object-name ?visible-object-type)
                                   (btr:visible ?world ?robot ?object-name)
+                                  (or (prolog:== ,object-type :kitchen-object)
+                                  (man-int:object-type-subtype ,object-type ?visible-object-type)
                                   (btr:pose ?world ?object-name ?object-pose)))))))
 
     ;; check if objects were found
